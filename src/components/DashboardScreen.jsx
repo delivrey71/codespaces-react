@@ -53,8 +53,21 @@ export function DashboardScreen({ onNavigate }) {
         </div>
 
         {/* Track quick-access */}
-        <div className="dash-track-cta" onClick={() => onNavigate('tracking')} role="button" tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && onNavigate('tracking')}>
+        <div
+          className="dash-track-cta"
+          onClick={() => onNavigate('tracking')}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              // Prevent page scroll when activating with Space
+              if (e.key === ' ') {
+                e.preventDefault();
+              }
+              onNavigate('tracking');
+            }
+          }}
+        >
           <div>
             <p className="dash-track-cta__title">Track a Package</p>
             <p className="dash-track-cta__sub">Enter tracking number</p>
